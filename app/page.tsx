@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 const services = [
   {
     number: "01",
@@ -57,6 +61,28 @@ const technology = [
 ];
 
 export default function Home() {
+  const [selectedPhoto, setSelectedPhoto] = useState<(typeof sectors)[number] | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!selectedPhoto) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedPhoto(null);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    closeButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedPhoto]);
+
   return (
     <main>
       <nav className="nav shell" aria-label="Main navigation">
@@ -142,12 +168,17 @@ export default function Home() {
           <p>From commercial projects to community initiatives, every service begins with the client’s goal and ends with something useful.</p>
         </div>
 <div className="projects shell">
-  {sectors.map((sector, index) => (
+          {sectors.map((sector) => (
     <article className={`project ${sector.className}`} key={sector.type}>
-      <div className="project-landscape">
-        <img
-          src={sector.image}
-          alt={sector.title}
+              <button
+                className="project-landscape project-photo-button"
+                type="button"
+                onClick={() => setSelectedPhoto(sector)}
+                aria-label={`Open full-screen photo of ${sector.location}`}
+              >
+                <img
+                  src={sector.image}
+                  alt={sector.title}
           style={{
             width: "100%",
             height: "100%",
@@ -155,10 +186,11 @@ export default function Home() {
             objectFit: "cover",
           }}
         />
-        <div className="project-marker">
-  {sector.location}
-</div>
-      </div>
+                <div className="project-marker">
+                  {sector.location}
+                </div>
+                <span className="project-view-label" aria-hidden="true">View photo +</span>
+              </button>
 
       <div className="project-copy">
         <span>{sector.type}</span>
@@ -270,6 +302,40 @@ export default function Home() {
         <p>Drone services + technology solutions</p>
         <p>© 2026ANGELWINGS UAS</p>
       </footer>
+
+      {selectedPhoto && (
+        <div
+          className="photo-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selectedPhoto.location} photo viewer`}
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <button
+            ref={closeButtonRef}
+            type="button"
+            className="photo-lightbox-close"
+            onClick={() => setSelectedPhoto(null)}
+            aria-label="Close photo viewer"
+          >
+            <span>Close</span>
+            <b aria-hidden="true">×</b>
+          </button>
+          <figure
+            className="photo-lightbox-figure"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img
+              src={selectedPhoto.image}
+              alt={`${selectedPhoto.title} — ${selectedPhoto.location}`}
+            />
+            <figcaption>
+              <span>{selectedPhoto.location}</span>
+              <strong>{selectedPhoto.title}</strong>
+            </figcaption>
+          </figure>
+        </div>
+      )}
     </main>
   );
 }
