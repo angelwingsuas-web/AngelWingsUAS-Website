@@ -168,7 +168,43 @@ export default function Home() {
   ))}
 </div>
       </section>
+<section className="virtual-tours shell" id="virtual-tours">
+  <div className="tour-heading">
+    <p className="eyebrow"><span /> Immersive perspectives</p>
+    <h2>
+      Explore our <em>360° virtual tours.</em>
+    </h2>
+    <p>
+      Step inside locations and experience them from every angle.
+    </p>
+  </div>
 
+  <div className="tour-card">
+    <div className="tour-frame">
+      <iframe
+        src="https://app.cloudpano.com/tours/CjiwYMgdo"
+        title="AngelWingsUAS Chino Hills 360 virtual tour"
+        loading="lazy"
+        allow="accelerometer; gyroscope; fullscreen; vr"
+        allowFullScreen
+      />
+    </div>
+
+    <div className="tour-details">
+      <span>360° VIRTUAL TOUR</span>
+      <h3>Chino Hills</h3>
+      <p>Explore Chino Hills through an interactive aerial perspective.</p>
+
+      <a
+        href="https://app.cloudpano.com/tours/CjiwYMgdo"
+        target="_blank"
+        rel="noreferrer"
+      >
+        OPEN FULL TOUR ↗
+      </a>
+    </div>
+  </div>
+</section>
       <section className="technology shell" id="technology">
         <div className="technology-intro">
           <p className="eyebrow"><span /> Beyond the flight</p>

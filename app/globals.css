@@ -251,3 +251,79 @@ h1 em, h2 em { color: var(--acid); font-family: var(--font-serif), Georgia, seri
 .button-light span {
   color: #6f2cff;
 }
+.virtual-tours {
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+
+.tour-heading {
+  max-width: 780px;
+  margin-bottom: 48px;
+}
+
+.tour-heading h2 {
+  margin: 18px 0;
+}
+
+.tour-heading em {
+  color: #6f2cff;
+}
+
+.tour-card {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  background: #11110f;
+  color: #fff;
+}
+
+.tour-frame {
+  min-height: 600px;
+}
+
+.tour-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  border: 0;
+}
+
+.tour-details {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.tour-details span {
+  color: #9b63ff;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+.tour-details h3 {
+  margin: 14px 0;
+  font-size: 38px;
+}
+
+.tour-details a {
+  margin-top: 24px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 800px) {
+  .tour-card {
+    grid-template-columns: 1fr;
+  }
+
+  .tour-frame,
+  .tour-frame iframe {
+    min-height: 480px;
+  }
+
+  .tour-details {
+    padding: 32px 24px;
+  }
+}
