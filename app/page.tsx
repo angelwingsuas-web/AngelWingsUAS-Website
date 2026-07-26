@@ -26,9 +26,27 @@ const services = [
 ];
 
 const sectors = [
-  { type: "BUSINESSES", title: "Stronger marketing and smarter decisions", className: "project-one" },
-  { type: "LOCAL GOVERNMENT", title: "Clear visuals for city and public projects", className: "project-two" },
-  { type: "COMMUNITIES", title: "A new perspective on the places we share", className: "project-three" },
+  {
+    type: "BUSINESSES",
+    title: "Stronger marketing and smarter decisions",
+    className: "project-one",
+    image: "/beach-aerial.jpg",
+     location: "Santa Barbara, CA",
+  },
+  {
+    type: "LOCAL GOVERNMENT",
+    title: "Clear visuals for city and public projects",
+    className: "project-two",
+    image: "/soledad-mountain.jpg",
+    location: "Mount Soledad, CA",
+  },
+  {
+    type: "COMMUNITIES",
+    title: "A new perspective on the places we share",
+    className: "project-three",
+    image: "/city-night.jpg",
+    location: "San Diego, CA · Near Petco Park",
+  },
 ];
 
 const technology = [
@@ -123,21 +141,32 @@ export default function Home() {
           <h2>Built for<br /><em>real-world impact.</em></h2>
           <p>From commercial projects to community initiatives, every service begins with the client’s goal and ends with something useful.</p>
         </div>
-        <div className="projects shell">
-          {sectors.map((sector, index) => (
-            <article className={`project ${sector.className}`} key={sector.type}>
-              <div className="project-landscape">
-                <div className="contour contour-one" />
-                <div className="contour contour-two" />
-                <div className="project-marker">+ {String(index + 1).padStart(2, "0")}</div>
-              </div>
-              <div className="project-copy">
-                <span>{sector.type}</span>
-                <h3>{sector.title}</h3>
-              </div>
-            </article>
-          ))}
-        </div>
+<div className="projects shell">
+  {sectors.map((sector, index) => (
+    <article className={`project ${sector.className}`} key={sector.type}>
+      <div className="project-landscape">
+        <img
+          src={sector.image}
+          alt={sector.title}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "block",
+            objectFit: "cover",
+          }}
+        />
+        <div className="project-marker">
+  {sector.location}
+</div>
+      </div>
+
+      <div className="project-copy">
+        <span>{sector.type}</span>
+        <h3>{sector.title}</h3>
+      </div>
+    </article>
+  ))}
+</div>
       </section>
 
       <section className="technology shell" id="technology">
