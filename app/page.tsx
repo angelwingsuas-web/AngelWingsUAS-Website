@@ -93,7 +93,7 @@ export default function Home() {
           </div>
           <div className="crosshair"><span /><i /></div>
           <div className="flight-top">
-            <span>ANGEL WINGS UAS / SOUTHERN CALIFORNIA</span><span>REC ●</span>
+            <span>ANGELWINGSUAS / SOUTHERN CALIFORNIA</span><span>REC ●</span>
           </div>
           <div className="flight-bottom">
             <span>SAFE<br />RELIABLE<br />INNOVATIVE</span>
@@ -232,7 +232,7 @@ export default function Home() {
           <img src="/angel-wings-uas-logo-cropped.png" alt="Angel Wings UAS" />
         </a>
         <p>Drone services + technology solutions</p>
-        <p>© 2026 ANGEL WINGS UAS</p>
+        <p>© 2026ANGELWINGS UAS</p>
       </footer>
     </main>
   );
