@@ -218,7 +218,12 @@ export default function Home() {
           <p className="eyebrow light"><span /> Ready when you are</p>
           <h2>Let’s build a<br /><em>better perspective.</em></h2>
           <p>Tell us about your project, challenge, or idea. We’ll help identify the right aerial or technology solution.</p>
-          <a className="button button-light" href="mailto:angelwingsuas@gmail.com?subject=AngelWingsUAS%20project%20inquiry">angelwingsuas@gmail.com <span>↗</span></a>
+          <a
+  className="button button-light"
+  href="mailto:support@angelwingsuas.com?subject=AngelWingsUAS%20project%20inquiry"
+>
+  support@angelwingsuas.com <span>↗</span>
+</a>
         </div>
       </section>
 

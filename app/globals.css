@@ -244,3 +244,10 @@ h1 em, h2 em { color: var(--acid); font-family: var(--font-serif), Georgia, seri
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+.button-light {
+  color: #6f2cff;
+}
+
+.button-light span {
+  color: #6f2cff;
+}
