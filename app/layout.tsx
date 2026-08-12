@@ -19,9 +19,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
   const protocol = requestHeaders.get("x-forwarded-proto") ?? "https";
   const baseUrl = host ? new URL(`${protocol}://${host}`) : new URL("https://skyward-aerial-drone.angelwingsuas.chatgpt.site");
-  const title = "AngelWingsUAS | Drone Services & Technology Solutions";
+  const title = "AngelWingsUAS Portfolio | Drone Photography, Video & 360° Tours";
   const description =
-    "FAA-certified drone services, aerial media, inspections, mapping support, custom web applications, AI tools, and automation for Southern California.";
+    "Explore AngelWingsUAS drone photography, aerial video, CloudPano 360° tours and visual project documentation captured throughout Southern California.";
 
   return {
     metadataBase: baseUrl,
@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       type: "website",
-      images: [{ url: new URL("/og.png", baseUrl), width: 1774, height: 887, alt: "AngelWingsUAS — Perspective with Purpose" }],
+      images: [{ url: new URL("/og.png", baseUrl), width: 1774, height: 887, alt: "AngelWingsUAS drone portfolio" }],
     },
     twitter: {
       card: "summary_large_image",

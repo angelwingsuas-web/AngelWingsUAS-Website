@@ -2,66 +2,34 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const services = [
+const photographs = [
   {
-    number: "01",
-    title: "Aerial media",
-    text: "Professional drone photography, cinematic videography, promotional media, and immersive 360° virtual tours.",
-    tag: "Photo · Video · 360°",
-  },
-  {
-    number: "02",
-    title: "Inspections",
-    text: "Clear aerial imagery for roofs, facilities, infrastructure, and hard-to-reach assets—captured with safety at the center.",
-    tag: "Inspect · Document",
-  },
-  {
-    number: "03",
-    title: "Mapping support",
-    text: "Mapping and surveying support that gives project teams a detailed, useful view of sites and surrounding conditions.",
-    tag: "Map · Measure",
-  },
-  {
-    number: "04",
-    title: "Progress documentation",
-    text: "Repeatable construction captures and visual records that make progress easier to communicate, compare, and understand.",
-    tag: "Track · Report",
-  },
-];
-
-const sectors = [
-  {
-    type: "BUSINESSES",
-    title: "Stronger marketing and smarter decisions",
-    className: "project-one",
+    title: "Pacific Coast Perspective",
+    location: "Santa Barbara, California",
+    category: "Coastal aerial photography",
     image: "/beach-aerial.jpg",
-     location: "Santa Barbara, CA",
+    className: "gallery-featured",
   },
   {
-    type: "LOCAL GOVERNMENT",
-    title: "Clear visuals for city and public projects",
-    className: "project-two",
+    title: "Southern California From Above",
+    location: "Mount Soledad, California",
+    category: "Landscape documentation",
     image: "/soledad-mountain.jpg",
-    location: "Mount Soledad, CA",
+    className: "",
   },
   {
-    type: "COMMUNITIES",
-    title: "A new perspective on the places we share",
-    className: "project-three",
+    title: "City After Dark",
+    location: "San Diego, California",
+    category: "Night aerial photography",
     image: "/city-night.jpg",
-    location: "San Diego, CA · Near Petco Park",
+    className: "",
   },
 ];
 
-const technology = [
-  ["Web applications", "Purpose-built digital experiences that make information and services easier to access."],
-  ["AI business tools", "Practical tools that help teams work faster, organize knowledge, and serve clients better."],
-  ["Automation", "Connected workflows that reduce repetitive work and improve day-to-day efficiency."],
-  ["Technology consulting", "Thoughtful guidance for choosing and applying technology around real business needs."],
-];
+type Photograph = (typeof photographs)[number];
 
-export default function Home() {
-  const [selectedPhoto, setSelectedPhoto] = useState<(typeof sectors)[number] | null>(null);
+export default function Portfolio() {
+  const [selectedPhoto, setSelectedPhoto] = useState<Photograph | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -69,11 +37,9 @@ export default function Home() {
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setSelectedPhoto(null);
     };
-
     window.addEventListener("keydown", onKeyDown);
     closeButtonRef.current?.focus();
 
@@ -85,254 +51,167 @@ export default function Home() {
 
   return (
     <main>
-      <nav className="nav shell" aria-label="Main navigation">
-        <a className="brand brand-logo" href="#top" aria-label="Angel Wings UAS home">
-          <img src="/angel-wings-uas-logo-cropped.png" alt="Angel Wings UAS" />
+      <nav className="nav shell" aria-label="Portfolio navigation">
+        <a className="brand-logo" href="#top" aria-label="AngelWingsUAS portfolio home">
+          <img src="/angel-wings-uas-logo-cropped.png" alt="AngelWingsUAS" />
         </a>
         <div className="nav-links">
-          <a href="#services">Drone services</a>
-          <a href="#technology">Technology</a>
-          <a href="#about">Our story</a>
+          <a href="#photography">Photography</a>
+          <a href="#video">Video</a>
+          <a href="#tours">360° Tours</a>
+          <a href="#on-location">On Location</a>
         </div>
-        <a className="nav-cta" href="#contact">Start a project <span>↗</span></a>
+        <a className="nav-cta" href="https://www.angelwingsuas.com" target="_blank" rel="noreferrer">
+          Main website <span>↗</span>
+        </a>
       </nav>
 
-      <section className="hero shell" id="top">
-        <div className="hero-copy">
-          <p className="eyebrow"><span /> Serving the Inland Empire & Southern California</p>
-          <h1>Perspective<br /><em>with purpose.</em></h1>
-          <p className="hero-intro">
-            Professional drone services and practical technology solutions that help organizations see clearly, work smarter, and tell better stories.
+      <section className="hero" id="top">
+        <img className="hero-image" src="/city-night.jpg" alt="Aerial night view of San Diego near Petco Park" />
+        <div className="hero-shade" />
+        <div className="hero-copy shell">
+          <p className="eyebrow"><span /> The AngelWingsUAS portfolio</p>
+          <h1>Aerial work.<br /><em>Real perspective.</em></h1>
+          <p>
+            Drone photography, cinematic video, interactive 360° experiences and visual project documentation captured throughout Southern California.
           </p>
           <div className="hero-actions">
-            <a className="button button-dark" href="#contact">Request project information <span>↗</span></a>
-            <a className="text-link" href="#services">Explore services <span>↓</span></a>
+            <a className="button button-primary" href="#photography">Explore the work <span>↓</span></a>
+            <a className="text-link" href="#tours">Launch a 360° tour <span>↗</span></a>
           </div>
         </div>
-        <div className="flight-card" aria-label="Abstract aerial flight path graphic">
-          <div className="flight-noise" />
-          <div className="flight-grid" />
-          <div className="flight-path">
-            <span className="path-dot dot-one" />
-            <span className="path-dot dot-two" />
-            <span className="path-dot dot-three" />
-          </div>
-          <div className="crosshair"><span /><i /></div>
-          <div className="flight-top">
-            <span>ANGELWINGSUAS / SOUTHERN CALIFORNIA</span><span>REC ●</span>
-          </div>
-          <div className="flight-bottom">
-            <span>SAFE<br />RELIABLE<br />INNOVATIVE</span>
-            <strong>107<small>FAA</small></strong>
-          </div>
-        </div>
-        <div className="hero-index">DRONES<br />+ TECHNOLOGY</div>
+        <div className="hero-corner">FAA PART 107 CERTIFIED<br />SOUTHERN CALIFORNIA</div>
       </section>
 
-      <section className="trust-strip">
-        <div className="shell trust-inner">
-          <span>Technology, creativity, and service</span>
-          <strong>FAA PART 107 CERTIFIED</strong>
-          <strong>SAFETY-FOCUSED</strong>
-          <strong>PROFESSIONAL</strong>
-          <strong>SOUTHERN CALIFORNIA</strong>
+      <section className="intro shell">
+        <p className="eyebrow dark"><span /> Selected work</p>
+        <div>
+          <h2>See the story<br /><em>from above.</em></h2>
+          <p>
+            This portfolio brings together real locations, changing light and useful visual detail—from coastal landscapes and city views to immersive tours and field documentation.
+          </p>
         </div>
       </section>
 
-      <section className="services shell" id="services">
-        <div className="section-heading">
-          <p className="eyebrow"><span /> Professional drone services</p>
-          <h2>See more.<br />Understand <em>more.</em></h2>
+      <section className="photography shell" id="photography">
+        <div className="section-title">
+          <span>01</span>
+          <h2>Drone photography</h2>
+          <p>Select an image to view it full screen.</p>
         </div>
-        <div className="service-list">
-          {services.map((service) => (
-            <article className="service" key={service.number}>
-              <span className="service-number">{service.number}</span>
-              <div>
-                <h3>{service.title}</h3>
-                <p>{service.text}</p>
-              </div>
-              <div className="service-meta">
-                <span>{service.tag}</span>
-                <b>↗</b>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="work" id="impact">
-        <div className="shell work-heading">
-          <p className="eyebrow light"><span /> Who we serve</p>
-          <h2>Built for<br /><em>real-world impact.</em></h2>
-          <p>From commercial projects to community initiatives, every service begins with the client’s goal and ends with something useful.</p>
-        </div>
-<div className="projects shell">
-          {sectors.map((sector) => (
-    <article className={`project ${sector.className}`} key={sector.type}>
-              <button
-                className="project-landscape project-photo-button"
-                type="button"
-                onClick={() => setSelectedPhoto(sector)}
-                aria-label={`Open full-screen photo of ${sector.location}`}
-              >
-                <img
-                  src={sector.image}
-                  alt={sector.title}
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "block",
-            objectFit: "cover",
-          }}
-        />
-                <div className="project-marker">
-                  {sector.location}
-                </div>
-                <span className="project-view-label" aria-hidden="true">View photo +</span>
+        <div className="photo-grid">
+          {photographs.map((photo) => (
+            <article className={`photo-card ${photo.className}`} key={photo.title}>
+              <button type="button" onClick={() => setSelectedPhoto(photo)} aria-label={`Open ${photo.title} full screen`}>
+                <img src={photo.image} alt={`${photo.title} — ${photo.location}`} />
+                <span className="view-label">View image +</span>
               </button>
-
-      <div className="project-copy">
-        <span>{sector.type}</span>
-        <h3>{sector.title}</h3>
-      </div>
-    </article>
-  ))}
-</div>
-      </section>
-<section className="virtual-tours shell" id="virtual-tours">
-  <div className="tour-heading">
-    <p className="eyebrow"><span /> Immersive perspectives</p>
-    <h2>
-      Explore our <em>360° virtual tours.</em>
-    </h2>
-    <p>
-      Step inside locations and experience them from every angle.
-    </p>
-  </div>
-
-  <div className="tour-card">
-    <div className="tour-frame">
-      <iframe
-        src="https://app.cloudpano.com/tours/CjiwYMgdo"
-        title="AngelWingsUAS Chino Hills 360 virtual tour"
-        loading="lazy"
-        allow="accelerometer; gyroscope; fullscreen; vr"
-        allowFullScreen
-      />
-    </div>
-
-    <div className="tour-details">
-      <span>360° VIRTUAL TOUR</span>
-      <h3>Chino Hills</h3>
-      <p>Explore Chino Hills through an interactive aerial perspective.</p>
-
-      <a
-        href="https://app.cloudpano.com/tours/CjiwYMgdo"
-        target="_blank"
-        rel="noreferrer"
-      >
-        OPEN FULL TOUR ↗
-      </a>
-    </div>
-  </div>
-</section>
-      <section className="technology shell" id="technology">
-        <div className="technology-intro">
-          <p className="eyebrow"><span /> Beyond the flight</p>
-          <h2>Technology that<br /><em>moves work forward.</em></h2>
-          <p>
-            AngelWingsUAS is growing beyond drone operations to create custom web applications, AI-powered business tools, automation solutions, and digital resources that improve efficiency and client experiences.
-          </p>
-        </div>
-        <div className="technology-grid">
-          {technology.map(([title, text], index) => (
-            <article className="technology-card" key={title}>
-              <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
+              <div className="photo-caption">
+                <div><span>{photo.category}</span><h3>{photo.title}</h3></div>
+                <p>{photo.location}</p>
+              </div>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="about shell" id="about">
-        <div className="founder-mark">
-          <span>FOUNDED BY</span>
-          <strong>JW</strong>
-          <p>Jevita Webster<br />FAA Part 107 Certified<br />Remote Pilot</p>
-        </div>
-        <div className="about-copy">
-          <p className="eyebrow"><span /> The story behind the wings</p>
-          <h2>Inspired by <em>Angel.</em><br />Built to help others<br />see what’s possible.</h2>
-          <p>
-            AngelWingsUAS was founded by FAA Part 107 Certified Remote Pilot Jevita Webster and inspired by her granddaughter, Angel. The company was created to help businesses, local governments, and communities gain valuable aerial perspectives through safe, reliable, and innovative technology.
-          </p>
-          <p>
-            Our goal is to combine technology, creativity, and exceptional customer service to deliver solutions that help clients make better decisions and tell their stories from a new perspective.
-          </p>
-          <div className="proof-grid">
-            <div><b>01</b><span>Safety first</span></div>
-            <div><b>02</b><span>Client focused</span></div>
-            <div><b>03</b><span>Innovation driven</span></div>
+      <section className="video-section" id="video">
+        <div className="shell video-layout">
+          <div className="section-title light">
+            <span>02</span>
+            <h2>Drone video</h2>
+            <p>Motion, atmosphere and perspective captured in flight.</p>
+          </div>
+          <div className="video-stage">
+            <div className="video-preview">
+              <img src="/beach-aerial.jpg" alt="Coastal aerial video preview" />
+              <div className="play-mark" aria-hidden="true">▶</div>
+            </div>
+            <div className="video-copy">
+              <p className="eyebrow light"><span /> Flight reels & project stories</p>
+              <h3>Video collection<br />coming into view.</h3>
+              <p>
+                This area is ready for AngelWingsUAS YouTube flight replays, cinematic property videos, event coverage and construction progress footage.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="contact" id="contact">
-        <div className="contact-orbit orbit-a" />
-        <div className="contact-orbit orbit-b" />
+      <section className="tours shell" id="tours">
+        <div className="section-title">
+          <span>03</span>
+          <h2>CloudPano 360° tours</h2>
+          <p>Explore a location interactively and look in every direction.</p>
+        </div>
+        <div className="tour-card">
+          <div className="tour-frame">
+            <iframe
+              src="https://app.cloudpano.com/tours/CjiwYMgdo"
+              title="AngelWingsUAS Chino Hills 360 virtual tour"
+              loading="lazy"
+              allow="accelerometer; gyroscope; fullscreen; vr"
+              allowFullScreen
+            />
+          </div>
+          <div className="tour-copy">
+            <span>INTERACTIVE 360° EXPERIENCE</span>
+            <h3>Chino Hills</h3>
+            <p>Move through the scene and explore this Southern California location from an immersive perspective.</p>
+            <a className="button button-primary" href="https://app.cloudpano.com/tours/CjiwYMgdo" target="_blank" rel="noreferrer">
+              Open full tour <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="on-location" id="on-location">
+        <div className="shell location-layout">
+          <div>
+            <p className="eyebrow light"><span /> Behind the operation</p>
+            <h2>On location.<br /><em>Flight ready.</em></h2>
+          </div>
+          <div className="location-copy">
+            <p>
+              Field notes, equipment preparation, live-flight moments and behind-the-scenes updates will show how AngelWingsUAS approaches each location with planning, awareness and purpose.
+            </p>
+            <div className="location-tags">
+              <span>Preflight</span><span>On site</span><span>Live flights</span><span>Behind the scenes</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="contact">
+        <div className="contact-orbit orbit-one" />
+        <div className="contact-orbit orbit-two" />
         <div className="shell contact-inner">
-          <p className="eyebrow light"><span /> Ready when you are</p>
-          <h2>Let’s build a<br /><em>better perspective.</em></h2>
-          <p>Tell us about your project, challenge, or idea. We’ll help identify the right aerial or technology solution.</p>
-          <a
-  className="button button-light"
-  href="mailto:support@angelwingsuas.com?subject=AngelWingsUAS%20project%20inquiry"
->
-  support@angelwingsuas.com <span>↗</span>
-</a>
+          <p className="eyebrow light"><span /> Have a project in mind?</p>
+          <h2>Let’s create<br /><em>your perspective.</em></h2>
+          <p>Visit the AngelWingsUAS main website to request a quote or schedule a project consultation.</p>
+          <div className="contact-actions">
+            <a className="button button-light" href="https://www.angelwingsuas.com" target="_blank" rel="noreferrer">Request project information <span>↗</span></a>
+            <a className="text-link light-link" href="mailto:support@angelwingsuas.com">support@angelwingsuas.com</a>
+          </div>
         </div>
       </section>
 
       <footer className="footer shell">
-        <a className="brand brand-logo footer-logo" href="#top" aria-label="Angel Wings UAS home">
-          <img src="/angel-wings-uas-logo-cropped.png" alt="Angel Wings UAS" />
+        <a className="brand-logo footer-logo" href="#top" aria-label="Back to top">
+          <img src="/angel-wings-uas-logo-cropped.png" alt="AngelWingsUAS" />
         </a>
-        <p>Drone services + technology solutions</p>
-        <p>© 2026ANGELWINGS UAS</p>
+        <p>Photography · Video · 360° experiences</p>
+        <p>© 2026 AngelWingsUAS</p>
       </footer>
 
       {selectedPhoto && (
-        <div
-          className="photo-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${selectedPhoto.location} photo viewer`}
-          onClick={() => setSelectedPhoto(null)}
-        >
-          <button
-            ref={closeButtonRef}
-            type="button"
-            className="photo-lightbox-close"
-            onClick={() => setSelectedPhoto(null)}
-            aria-label="Close photo viewer"
-          >
-            <span>Close</span>
-            <b aria-hidden="true">×</b>
+        <div className="lightbox" role="dialog" aria-modal="true" aria-label={`${selectedPhoto.title} image viewer`} onClick={() => setSelectedPhoto(null)}>
+          <button ref={closeButtonRef} type="button" className="lightbox-close" onClick={() => setSelectedPhoto(null)} aria-label="Close image viewer">
+            Close <b aria-hidden="true">×</b>
           </button>
-          <figure
-            className="photo-lightbox-figure"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <img
-              src={selectedPhoto.image}
-              alt={`${selectedPhoto.title} — ${selectedPhoto.location}`}
-            />
-            <figcaption>
-              <span>{selectedPhoto.location}</span>
-              <strong>{selectedPhoto.title}</strong>
-            </figcaption>
+          <figure onClick={(event) => event.stopPropagation()}>
+            <img src={selectedPhoto.image} alt={`${selectedPhoto.title} — ${selectedPhoto.location}`} />
+            <figcaption><span>{selectedPhoto.category}</span><strong>{selectedPhoto.title}</strong><p>{selectedPhoto.location}</p></figcaption>
           </figure>
         </div>
       )}

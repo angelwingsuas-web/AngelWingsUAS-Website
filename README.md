@@ -1,24 +1,23 @@
 # AngelWingsUAS Website
 
-Official website source for **AngelWingsUAS**, a Southern California drone
-services and technology solutions company founded by FAA Part 107 Certified
-Remote Pilot Jevita Webster.
+Portfolio website for **AngelWingsUAS**, featuring drone photography, aerial
+video, CloudPano 360° tours, and on-location visual documentation by FAA Part
+107 Certified Remote Pilot Jevita Webster.
 
 ## Website
 
 - Live preview: https://skyward-aerial-drone.angelwingsuas.chatgpt.site
-- Current business domain: https://www.angelwingsuas.com
-- Contact: angelwingsuas@gmail.com
+- Portfolio: https://angelwingsuas-website.angelwingsuas.workers.dev/
+- Main business website: https://www.angelwingsuas.com
+- Contact: support@angelwingsuas.com
 
 ## What this site includes
 
-- Professional drone photography and videography
-- Aerial inspections
-- Mapping and surveying support
-- Construction progress documentation
-- Community and city project services
-- Promotional media and 360° virtual tours
-- Web applications, AI business tools, automation, and technology consulting
+- Full-screen drone photography gallery
+- A video showcase ready for YouTube flight footage
+- Embedded CloudPano 360° virtual tours
+- On-location and behind-the-scenes storytelling
+- Direct links to the main AngelWingsUAS website for project requests
 
 ## Local development
 
