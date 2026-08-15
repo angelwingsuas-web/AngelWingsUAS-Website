@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import PanoramaViewer from "./PanoramaViewer";
 
 const photographs = [
   {
@@ -48,8 +49,6 @@ type Photograph = (typeof photographs)[number];
 
 export default function Portfolio() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photograph | null>(null);
-  const [panoramaPosition, setPanoramaPosition] = useState(50);
-  const dragStart = useRef<{ x: number; position: number } | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -197,30 +196,10 @@ export default function Portfolio() {
             <h2>360° drone images</h2>
             <p>Drag the panorama left or right to explore the full aerial scene.</p>
           </div>
-          <div
-            className="panorama-viewer"
-            role="img"
-            aria-label="Interactive 360 degree aerial panorama of downtown San Diego"
-            tabIndex={0}
-            style={{ backgroundPosition: `${panoramaPosition}% center` }}
-            onPointerDown={(event) => {
-              event.currentTarget.setPointerCapture(event.pointerId);
-              dragStart.current = { x: event.clientX, position: panoramaPosition };
-            }}
-            onPointerMove={(event) => {
-              if (!dragStart.current) return;
-              const next = dragStart.current.position - (event.clientX - dragStart.current.x) / 8;
-              setPanoramaPosition(Math.max(0, Math.min(100, next)));
-            }}
-            onPointerUp={() => { dragStart.current = null; }}
-            onPointerCancel={() => { dragStart.current = null; }}
-            onKeyDown={(event) => {
-              if (event.key === "ArrowLeft") setPanoramaPosition((value) => Math.max(0, value - 5));
-              if (event.key === "ArrowRight") setPanoramaPosition((value) => Math.min(100, value + 5));
-            }}
-          >
-            <div className="panorama-hint" aria-hidden="true">← Drag to explore 360° →</div>
-          </div>
+          <PanoramaViewer
+            src="/esri-uc-2026-360.jpg"
+            ariaLabel="Interactive 360 degree aerial panorama of downtown San Diego"
+          />
           <div className="panorama-copy">
             <div>
               <span>360° DRONE IMAGE · ESRI UC 2026</span>
