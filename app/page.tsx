@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 const photographs = [
   {
-    title: "Pacific Coast Perspective",
+    title: "Southern California Coastline",
     location: "Santa Barbara, California",
     category: "Coastal aerial photography",
     image: "/beach-aerial.jpg",
@@ -26,10 +26,30 @@ const photographs = [
   },
 ];
 
+const tours = [
+  {
+    title: "Chino Hills",
+    description: "Explore this Southern California location from an immersive aerial perspective.",
+    url: "https://app.cloudpano.com/tours/CjiwYMgdo",
+  },
+  {
+    title: "Caffe Liscio",
+    description: "Step inside a local cafe through a branded, interactive virtual experience.",
+    url: "https://app.cloudpano.com/tours/UAPoPNDVK",
+  },
+  {
+    title: "WindyVille Community Garden",
+    description: "Look across the community garden and surrounding Inland Empire landscape from above.",
+    url: "https://app.cloudpano.com/tours/Vzf8RbGUg",
+  },
+];
+
 type Photograph = (typeof photographs)[number];
 
 export default function Portfolio() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photograph | null>(null);
+  const [panoramaPosition, setPanoramaPosition] = useState(50);
+  const dragStart = useRef<{ x: number; position: number } | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -58,7 +78,8 @@ export default function Portfolio() {
         <div className="nav-links">
           <a href="#photography">Photography</a>
           <a href="#video">Video</a>
-          <a href="#tours">360° Tours</a>
+          <a href="#tours">Virtual tours</a>
+          <a href="#panoramas">360° images</a>
           <a href="#on-location">On Location</a>
         </div>
         <a className="nav-cta" href="https://www.angelwingsuas.com" target="_blank" rel="noreferrer">
@@ -144,23 +165,68 @@ export default function Portfolio() {
           <h2>CloudPano 360° tours</h2>
           <p>Explore a location interactively and look in every direction.</p>
         </div>
-        <div className="tour-card">
-          <div className="tour-frame">
-            <iframe
-              src="https://app.cloudpano.com/tours/CjiwYMgdo"
-              title="AngelWingsUAS Chino Hills 360 virtual tour"
-              loading="lazy"
-              allow="accelerometer; gyroscope; fullscreen; vr"
-              allowFullScreen
-            />
+        <div className="tour-grid">
+          {tours.map((tour) => (
+            <article className="tour-card" key={tour.url}>
+              <div className="tour-frame">
+                <iframe
+                  src={tour.url}
+                  title={`AngelWingsUAS ${tour.title} 360 virtual tour`}
+                  loading="lazy"
+                  allow="accelerometer; gyroscope; fullscreen; vr"
+                  allowFullScreen
+                />
+              </div>
+              <div className="tour-copy">
+                <span>INTERACTIVE 360° EXPERIENCE</span>
+                <h3>{tour.title}</h3>
+                <p>{tour.description}</p>
+                <a className="button button-primary" href={tour.url} target="_blank" rel="noreferrer">
+                  Open full tour <span>↗</span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="panoramas" id="panoramas">
+        <div className="shell">
+          <div className="section-title light">
+            <span>04</span>
+            <h2>360° drone images</h2>
+            <p>Drag the panorama left or right to explore the full aerial scene.</p>
           </div>
-          <div className="tour-copy">
-            <span>INTERACTIVE 360° EXPERIENCE</span>
-            <h3>Chino Hills</h3>
-            <p>Move through the scene and explore this Southern California location from an immersive perspective.</p>
-            <a className="button button-primary" href="https://app.cloudpano.com/tours/CjiwYMgdo" target="_blank" rel="noreferrer">
-              Open full tour <span>↗</span>
-            </a>
+          <div
+            className="panorama-viewer"
+            role="img"
+            aria-label="Interactive 360 degree aerial panorama of downtown San Diego"
+            tabIndex={0}
+            style={{ backgroundPosition: `${panoramaPosition}% center` }}
+            onPointerDown={(event) => {
+              event.currentTarget.setPointerCapture(event.pointerId);
+              dragStart.current = { x: event.clientX, position: panoramaPosition };
+            }}
+            onPointerMove={(event) => {
+              if (!dragStart.current) return;
+              const next = dragStart.current.position - (event.clientX - dragStart.current.x) / 8;
+              setPanoramaPosition(Math.max(0, Math.min(100, next)));
+            }}
+            onPointerUp={() => { dragStart.current = null; }}
+            onPointerCancel={() => { dragStart.current = null; }}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowLeft") setPanoramaPosition((value) => Math.max(0, value - 5));
+              if (event.key === "ArrowRight") setPanoramaPosition((value) => Math.min(100, value + 5));
+            }}
+          >
+            <div className="panorama-hint" aria-hidden="true">← Drag to explore 360° →</div>
+          </div>
+          <div className="panorama-copy">
+            <div>
+              <span>360° DRONE IMAGE · ESRI UC 2026</span>
+              <h3>Downtown San Diego Panorama</h3>
+            </div>
+            <p>A sweeping aerial view of downtown San Diego captured as an interactive equirectangular panorama.</p>
           </div>
         </div>
       </section>
@@ -200,7 +266,7 @@ export default function Portfolio() {
         <a className="brand-logo footer-logo" href="#top" aria-label="Back to top">
           <img src="/angel-wings-uas-logo-cropped.png" alt="AngelWingsUAS" />
         </a>
-        <p>Photography · Video · 360° experiences</p>
+        <p>Photography · Video · Virtual tours · 360° panoramas</p>
         <p>© 2026 AngelWingsUAS</p>
       </footer>
 
