@@ -81,13 +81,27 @@ h1 em, h2 em { color: var(--purple-light); font-family: var(--font-serif), Georg
 .video-copy > p:last-child { margin: 0; color: rgba(255,255,255,.62); line-height: 1.7; font-size: 14px; }
 
 .tours { padding: 135px 0; }
-.tour-card { margin-top: 42px; display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(300px, .7fr); background: var(--ink); color: white; }
+.tour-grid { margin-top: 42px; display: grid; gap: 34px; }
+.tour-card { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(300px, .7fr); background: var(--ink); color: white; }
+.tour-card:nth-child(even) { grid-template-columns: minmax(300px, .7fr) minmax(0, 1.7fr); }
+.tour-card:nth-child(even) .tour-frame { order: 2; }
 .tour-frame, .tour-frame iframe { min-height: 610px; }
 .tour-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
 .tour-copy { padding: 46px; display: flex; flex-direction: column; justify-content: flex-end; }
 .tour-copy > span { color: var(--rose); font-size: 9px; letter-spacing: .15em; }
 .tour-copy h3 { margin: 16px 0; font-size: 46px; letter-spacing: -.05em; }
 .tour-copy p { margin: 0 0 30px; color: rgba(255,255,255,.66); line-height: 1.65; font-size: 14px; }
+
+.panoramas { padding: 135px 0; background: var(--ink); color: white; }
+.panorama-viewer { margin-top: 42px; min-height: 620px; position: relative; overflow: hidden; background-image: url('/esri-uc-2026-360.jpg'); background-size: auto 100%; background-repeat: repeat-x; cursor: grab; touch-action: pan-y; border: 1px solid rgba(255,255,255,.18); user-select: none; }
+.panorama-viewer:active { cursor: grabbing; }
+.panorama-viewer:focus-visible { outline: 3px solid var(--purple-light); outline-offset: 4px; }
+.panorama-viewer::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(5,6,8,.36), transparent 34%); }
+.panorama-hint { position: absolute; z-index: 1; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 11px 16px; white-space: nowrap; background: rgba(8,9,12,.78); border: 1px solid rgba(255,255,255,.28); text-transform: uppercase; letter-spacing: .12em; font-size: 9px; backdrop-filter: blur(8px); }
+.panorama-copy { padding-top: 24px; display: grid; grid-template-columns: 1fr 420px; gap: 50px; align-items: start; }
+.panorama-copy span { color: var(--rose); font-size: 9px; letter-spacing: .15em; }
+.panorama-copy h3 { margin: 10px 0 0; font-size: 32px; letter-spacing: -.045em; }
+.panorama-copy p { margin: 0; color: rgba(255,255,255,.62); line-height: 1.7; font-size: 13px; }
 
 .on-location { background: #17151c; color: white; padding: 125px 0; }
 .location-layout { display: grid; grid-template-columns: 1.15fr .85fr; gap: 80px; align-items: end; }
@@ -129,13 +143,15 @@ h1 em, h2 em { color: var(--purple-light); font-family: var(--font-serif), Georg
   .intro { padding: 95px 0; }
   .section-title { grid-template-columns: 45px 1fr; }
   .section-title p { grid-column: 2; }
-  .photo-grid, .video-stage, .tour-card { grid-template-columns: 1fr; }
+  .photo-grid, .video-stage, .tour-card, .tour-card:nth-child(even), .panorama-copy { grid-template-columns: 1fr; }
+  .tour-card:nth-child(even) .tour-frame { order: 0; }
   .photo-card.gallery-featured { grid-row: auto; }
   .photo-card.gallery-featured button, .photo-card button { height: 430px; }
   .video-preview { min-height: 430px; }
   .video-copy { border-left: 0; border-top: 1px solid rgba(255,255,255,.12); padding: 35px 28px; }
   .tour-frame, .tour-frame iframe { min-height: 500px; }
   .tour-copy { padding: 35px 28px; }
+  .panorama-viewer { min-height: 500px; }
 }
 
 @media (max-width: 560px) {
@@ -152,10 +168,11 @@ h1 em, h2 em { color: var(--purple-light); font-family: var(--font-serif), Georg
   .photo-card.gallery-featured button, .photo-card button { height: 300px; }
   .photo-caption { display: block; }
   .photo-caption p { margin-top: 9px; }
-  .video-section, .on-location { padding: 90px 0; }
+  .video-section, .on-location, .panoramas { padding: 90px 0; }
   .video-preview { min-height: 300px; }
   .tours { padding: 95px 0; }
   .tour-frame, .tour-frame iframe { min-height: 420px; }
+  .panorama-viewer { min-height: 420px; }
   .contact { min-height: 600px; }
   .contact h2 { font-size: 55px; }
   .button-light { width: 100%; }
