@@ -77,6 +77,7 @@ export default function PanoramaViewer({ src, ariaLabel }: PanoramaViewerProps) 
   const pointerRef = useRef<{ id: number; x: number; y: number; yaw: number; pitch: number } | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const redraw = () => drawRef.current();
   const zoom = (amount: number) => {
@@ -89,6 +90,30 @@ export default function PanoramaViewer({ src, ariaLabel }: PanoramaViewerProps) 
     setHasInteracted(false);
     redraw();
   };
+  const toggleFullscreen = async () => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
+    try {
+      if (document.fullscreenElement === wrapper) {
+        await document.exitFullscreen();
+      } else {
+        await wrapper.requestFullscreen();
+      }
+    } catch (error) {
+      console.error("Unable to change panorama fullscreen mode:", error);
+    }
+  };
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement === wrapperRef.current);
+      requestAnimationFrame(redraw);
+    };
+
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -241,7 +266,7 @@ export default function PanoramaViewer({ src, ariaLabel }: PanoramaViewerProps) 
           else if (event.key === "+" || event.key === "=") view.fov = Math.max(35, view.fov - 5);
           else if (event.key === "-") view.fov = Math.min(100, view.fov + 5);
           else if (event.key === "Home") resetView();
-          else if (event.key.toLowerCase() === "f") wrapperRef.current?.requestFullscreen?.();
+          else if (event.key.toLowerCase() === "f") void toggleFullscreen();
           else return;
           event.preventDefault();
           setHasInteracted(true);
@@ -262,7 +287,15 @@ export default function PanoramaViewer({ src, ariaLabel }: PanoramaViewerProps) 
         <button type="button" onClick={() => zoom(8)} aria-label="Zoom out">−</button>
         <button type="button" className="panorama-reset" onClick={resetView}>Reset view</button>
         <button type="button" onClick={() => zoom(-8)} aria-label="Zoom in">+</button>
-        <button type="button" onClick={() => wrapperRef.current?.requestFullscreen?.()} aria-label="View panorama full screen">⛶</button>
+        <button
+          type="button"
+          onClick={() => void toggleFullscreen()}
+          aria-label={isFullscreen ? "Exit panorama full screen" : "View panorama full screen"}
+          aria-pressed={isFullscreen}
+          title={isFullscreen ? "Exit full screen" : "View full screen"}
+        >
+          {isFullscreen ? "↙" : "⛶"}
+        </button>
       </div>
     </div>
   );
