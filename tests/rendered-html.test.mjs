@@ -31,13 +31,13 @@ test("server-renders the AngelWingsUAS homepage", async () => {
   const html = await response.text();
   assert.match(
     html,
-    /<title>AngelWingsUAS \| Drone Services &amp; Technology Solutions<\/title>/i,
+    /<title>AngelWingsUAS Portfolio \| Drone Photography, Video &amp; 360° Tours<\/title>/i,
   );
-  assert.match(html, /Perspective/);
-  assert.match(html, /with purpose\./);
-  assert.match(html, /FAA PART 107 CERTIFIED/);
-  assert.match(html, /Professional drone services/);
-  assert.match(html, /technology solutions/i);
+   assert.match(html, /Aerial work\./);
+  assert.match(html, /Real perspective\./);
+  assert.match(html, /Drone photography/);
+  assert.match(html, /Drone video/);
+  assert.match(html, /CloudPano 360° tours/);
   assert.match(html, /Request project information/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
 });
@@ -49,10 +49,12 @@ test("keeps production metadata and core source assets in place", async () => {
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /Perspective/);
-  assert.match(page, /Professional drone services/);
-  assert.match(page, /technology solutions/i);
-  assert.match(layout, /AngelWingsUAS \| Drone Services & Technology Solutions/);
+   assert.match(page, /Aerial work\./);
+  assert.match(page, /Drone photography/);
+  assert.match(page, /Drone video/);
+  assert.match(page, /CloudPano 360° tours/);
+  assert.match(page, /360° drone images/);
+  assert.match(layout, /AngelWingsUAS Portfolio \| Drone Photography, Video & 360° Tours/);
   assert.match(layout, /openGraph:/);
   assert.match(layout, /twitter:/);
   assert.match(packageJson, /"test": "npm run build && node --test/);
